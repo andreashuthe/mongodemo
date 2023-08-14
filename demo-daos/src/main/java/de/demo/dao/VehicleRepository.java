@@ -20,5 +20,8 @@ public interface VehicleRepository extends MongoRepository<Vehicle, Long> {
     @Override
     long count();
 
-    @Override Vehicle insert(Vehicle vehicle);
+    @Override
+    Vehicle save(Vehicle entity);
+
+    @Override void delete(Vehicle vehicle);
 }

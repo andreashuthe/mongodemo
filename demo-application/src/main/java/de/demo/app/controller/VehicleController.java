@@ -1,5 +1,6 @@
 package de.demo.app.controller;
 
+import de.demo.dto.CreateVehicleDto;
 import de.demo.dto.VehicleDto;
 import de.demo.service.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +25,14 @@ public class VehicleController {
     }
 
     @PostMapping("/create")
-    public VehicleDto createVehicle(Principal principal, VehicleDto vehicleDto) {
-        Long id = vehicleService.saveVehicle(vehicleDto);
+    public VehicleDto createVehicle(Principal principal, CreateVehicleDto vehicleDto) {
+        Long id = vehicleService.createVehicle(vehicleDto);
         return vehicleService.provideVehicleById(id);
+    }
+
+    @PostMapping("/save")
+    public VehicleDto createVehicle(Principal principal, VehicleDto vehicleDto) {
+        return vehicleService.saveVehicle(vehicleDto);
     }
 
     @GetMapping("/name/{name}")

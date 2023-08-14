@@ -2,6 +2,7 @@ package de.demo.service.impl;
 
 import de.demo.bean.Vehicle;
 import de.demo.dao.VehicleRepository;
+import de.demo.dto.CreateVehicleDto;
 import de.demo.dto.VehicleDto;
 import de.demo.service.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,9 +21,16 @@ public class VehicleServiceImpl implements VehicleService {
     }
 
     @Override
-    public Long saveVehicle(VehicleDto vehicle) {
+    public Long createVehicle(CreateVehicleDto vehicle) {
         final Vehicle vehicleToSave = new Vehicle(vehicle.name(), vehicle.vehicleCategory(), vehicle.vehicleNumber(), vehicle.vehicleIdNumber());
         return vehicleRepository.insert(vehicleToSave).getId();
+    }
+
+    @Override
+    public VehicleDto saveVehicle(VehicleDto vehicle) {
+        final Vehicle vehicleToSave = new Vehicle(vehicle.name(), vehicle.vehicleCategory(), vehicle.vehicleNumber(), vehicle.vehicleIdNumber());
+        final Vehicle savedVehicle = vehicleRepository.save(vehicleToSave);
+        return new VehicleDto(savedVehicle.getId(), savedVehicle.getName(), savedVehicle.getVehicleCategory(), savedVehicle.getVehicleNumber(), savedVehicle.getVehicleIdNumber());
     }
 
     @Override
