@@ -1,12 +1,11 @@
 package de.demo.bean;
 
 import lombok.Data;
-import lombok.Getter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collation = "vehicle")
+@Document(collection = "vehicle")
 @Data
 public class Vehicle {
 
@@ -22,7 +21,6 @@ public class Vehicle {
     private String vehicleNumber;
 
     private String vehicleIdNumber;
-
 
     public Vehicle(String name, String vehicleCategory, String vehicleNumber, String vehicleIdNumber) {
         super();

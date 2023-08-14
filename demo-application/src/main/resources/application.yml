@@ -1,0 +1,16 @@
+server:
+  port: 8008
+  servlet:
+    contextPath: /demo
+logging:
+  level:
+    org.springframework.orm.jpa: DEBUG
+    org.springframework.transaction: DEBUG
+spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  data:
+    mongodb:
+      uri: mongodb://root:example@localhost:27017/vehicle?authSource=admin
+      database: vehicle

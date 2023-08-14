@@ -9,7 +9,10 @@ import java.util.List;
 public interface VehicleRepository extends MongoRepository<Vehicle, Long> {
 
     @Query("{name:'?0'}")
-    Vehicle findItemByName(String name);
+    List<Vehicle> findVehiclesByName(String name);
+
+    @Query("{id:'?0'}")
+    Vehicle findVehicleById(Long id);
 
     @Query(value="{vehicleCategory:'?0'}", fields="{'name' : 1, 'vehicleNumber' : 1}")
     List<Vehicle> findAll(String vehicleCategory);

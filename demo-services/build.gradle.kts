@@ -25,6 +25,7 @@ dependencies {
     implementation( "org.springframework:spring-context")
     compileOnly("org.projectlombok:lombok:1.18.28")
     annotationProcessor("org.projectlombok:lombok:1.18.28")
+    implementation("org.springframework.data:spring-data-mongodb")
     api(project(":demo-dtos"))
     api(project(":demo-daos"))
 }

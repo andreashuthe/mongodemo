@@ -19,6 +19,8 @@ configurations {
     }
 }
 
+extra["jakarta-servlet.version"] = "5.0.0"
+
 sourceSets {
     main {
         java {
@@ -31,30 +33,26 @@ node {
     version.set("18.14.2")
     npmVersion.set("9.5.0")
     download.set(true)
-    nodeProjectDir.set(file("src/main/webapp/frontend/v-db-app"))
+    nodeProjectDir.set(file("src/main/webapp/frontend/demo-app"))
 }
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-security")
     implementation("org.springframework.boot:spring-boot-starter-web") {
         exclude(group = "org.springframework.boot", module = "spring-boot-starter-logging")
+        exclude(group = "org.springframework.boot", module = "spring-boot-starter-tomcat")
     }
-
-    implementation("org.springframework.boot:spring-boot-starter-data-jdbc")
+    implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
 
     implementation("org.apache.commons:commons-collections4:4.4")
     implementation("org.apache.commons:commons-lang3:3.12.0")
 
-    providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
-    providedCompile("org.apache.tomcat:tomcat-dbcp:10.1.5")
-    providedCompile("org.apache.tomcat:tomcat-jdbc:10.1.5")
+    implementation("org.springframework.boot:spring-boot-starter-jetty")
     implementation("org.springframework.boot:spring-boot-starter-log4j2")
 
-    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.1.0")
-
+    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.2.0")
     compileOnly("org.projectlombok:lombok:1.18.28")
     annotationProcessor("org.projectlombok:lombok:1.18.28")
-
 
     api(project(":demo-services"))
 }
@@ -103,16 +101,10 @@ tasks.register("buildDeployment") {
     warFile.mustRunAfter(fe)
 }
 
-tasks.withType<ProcessResources>().configureEach {
-    filesMatching("application.properties") {
-        expand(project.properties)
-    }
-}
-
 
 tasks {
     val bootRun by getting(org.springframework.boot.gradle.tasks.run.BootRun::class) {
         //jvmArgs = listOf("-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=*:5011", "-Dspring.profiles.active=embedded", "-Dcatalina.base=build/tmp/")
-        jvmArgs = listOf("-Dspring.profiles.active=embedded", "-Dcatalina.base=build/tmp/")
+        jvmArgs = listOf("-Dspring.profiles.active=embedded")
     }
 }
